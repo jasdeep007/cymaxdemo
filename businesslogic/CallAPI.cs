@@ -18,7 +18,7 @@ namespace cymaxdemo.businesslogic
         {
             this.httpContextAccessor = httpContextAccessor;
         }
-        public async Task<returnModelFromCompanies> CallAPIforcompany(string url, object model, bool isxml = false)
+        public async Task<string> CallAPIforcompany(string url, object model, bool isxml = false)
         {
             using var netclient = new HttpClient();
             string json = await Task.Run(() => JsonSerializer.Serialize(model));
@@ -34,9 +34,10 @@ namespace cymaxdemo.businesslogic
                 try
                 {
                     var responseContent = await httpResponse.Content.ReadAsStringAsync();
-                    return JsonSerializer.Deserialize<returnModelFromCompanies>(responseContent);
+                    // return JsonSerializer.Deserialize<object>(responseContent);
+                    return responseContent;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return null;
                 }

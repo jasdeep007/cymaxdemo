@@ -15,38 +15,44 @@ namespace cymaxdemo.controller
     {
         [Route("company_one")]
         [HttpPost]
-        public async Task<returnModelFromCompanies> company_one([FromBody] company_one_data data)
+        public async Task<returnModelFromCompany1> company_one([FromBody] company_one_data data)
         {
             Random rnd = new Random();
-            var result = Task.Run(() => new returnModelFromCompanies() { fair = rnd.Next(1, 10), time = rnd.Next(1, 10), companyName = "Company 1" });
+            var result = Task.Run(() => new returnModelFromCompany1() { fair = rnd.Next(1, 10), time = rnd.Next(1, 10), companyName = "Company 1" });
             await Task.WhenAll(result);
             return result.Result;
         }
         [Route("company_two")]
         [HttpPost]
-        public async Task<returnModelFromCompanies> company_two([FromBody] company_two_data data)
+        public async Task<returnModelFromCompany2> company_two([FromBody] company_two_data data)
         {
             Random rnd = new Random();
-            var result = Task.Run(() => new returnModelFromCompanies() { fair = rnd.Next(1, 10), time = rnd.Next(1, 10), companyName = "Company 2" });
+            var result = Task.Run(() => new returnModelFromCompany2() { amount = rnd.Next(1, 10), time = rnd.Next(1, 10), companyName = "Company 2" });
             await Task.WhenAll(result);
             return result.Result;
         }
         [Route("company_three")]
         [HttpPost]
-        public async Task<returnModelFromCompanies> company_three([FromBody] company_three_data data)
+        public async Task<returnModelFromCompany3> company_three([FromBody] company_three_data data)
         {
             Random rnd = new Random();
-            var result = Task.Run(() => new returnModelFromCompanies() { fair = rnd.Next(1, 10), time = rnd.Next(1, 10), companyName = "Company 3" });
+            var result = Task.Run(() => new returnModelFromCompany3() { price = rnd.Next(1, 10), time = rnd.Next(1, 10), companyName = "Company 3" });
             await Task.WhenAll(result);
             return result.Result;
         }
 
         [Route("company_four_withXML")]
         [HttpPost]
-        public async Task<returnModelFromCompanies> company_four_withXML([FromBody] company_four_data data)
+        public async Task<string> company_four_withXML([FromBody] company_four_data data)
         {
             Random rnd = new Random();
-            var result = Task.Run(() => new returnModelFromCompanies() { fair = rnd.Next(1, 10), time = rnd.Next(1, 10), companyName = "Company 3" });
+            var result = Task.Run(() => {
+                return @"<root>
+                            <quote>"+ rnd.Next(1, 10) + @"</quote>
+                            <time>" + rnd.Next(1, 10) + @"</time>
+                            <companyName>Company 4</companyName>
+                        </root>";
+            });
             await Task.WhenAll(result);
             return result.Result;
         }
